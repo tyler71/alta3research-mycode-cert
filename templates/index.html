@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cat Facts!</title>
+</head>
+<body>
+<h1>Welcome to cat facts!</h1>
+
+<div>
+    <div id="cat_fact"></div>
+    <div>
+        <button id="another_cat_fact">Again!</button>
+    </div>
+    <div id="cat_log"></div>
+</div>
+
+
+</body>
+<script>
+    async function getCatFact() {
+        let resp = await fetch("/cat_fact", {
+            headers: {"Content-Type": "application/json"}
+        })
+        resp = await resp.json()
+        return resp
+    }
+
+    window.addEventListener('load', async () => {
+        let cat_fact = await getCatFact()
+        document.querySelector("#cat_fact").innerHTML = cat_fact["result"]
+    })
+    document.querySelector("#another_cat_fact").addEventListener('click', async () => {
+        let cat_fact = await getCatFact()
+        document.querySelector("#cat_fact").innerHTML = cat_fact["result"]
+        let li = document.createElement('li')
+        li.innerHTML = '- ' + cat_fact["result"]
+        document.querySelector("#cat_log").append(li)
+    })
+</script>
+</html>
