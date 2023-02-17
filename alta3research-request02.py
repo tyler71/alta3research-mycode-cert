@@ -13,7 +13,7 @@ import requests
 
 parser = argparse.ArgumentParser()
 
-
+# We use type annotations here.
 def get_repo_info(author: str, repo: str) -> str:
     PREFIX = 'https://api.github.com/repos'
     req = requests.get(f'{PREFIX}/{author}/{repo}')
@@ -29,6 +29,7 @@ Are you going to help out? :D
 
 
 def main():
+    # Defined the arguments for the program
     parser = argparse.ArgumentParser()
     parser.add_argument("-r", "--repo", type=str, help="Select a repo")
     parser.add_argument("-a", "--author", type=str, help="Select an author")
